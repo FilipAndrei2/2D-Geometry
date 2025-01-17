@@ -1,2 +1,2 @@
-# 2D-Geometry
-A library for working with 2D geometry and mathematics
+# 2D-Physics-Library
+A library written in C++ that provides various classes for working with 2D geometry and physics

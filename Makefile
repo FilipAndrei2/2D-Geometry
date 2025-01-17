@@ -1,0 +1,2 @@
+default:
+	g++ -Wall -Wextra src/Vector2.cpp testing/Vector2tests.cpp -o Vector2test.exe -I "include" -I "D:\dev\libs\googletest-1.15.2\googletest\include" -L "D:\dev\libs\googletest-1.15.2\build\lib" -lgtest -lgtest_main

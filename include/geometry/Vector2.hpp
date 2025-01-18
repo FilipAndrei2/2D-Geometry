@@ -118,6 +118,7 @@ namespace geometry {
          *  @brief Returns a scaled version of the current instance object
          * 
          * For trimming a vector, provide a subunitar factor. 
+         * This method doesn't modify the internal state of the current instance object.
          * 
          * @param factor Floating value scaling factor.
          * 
@@ -130,23 +131,107 @@ namespace geometry {
          * 
          * Two vectors are equal if they point to the same coordinates.
          * The equality of floats is made with an epsilon error value of 1e-6.
-        */
+         * This method doesn't modify the internal state of the current instance object.
+         * 
+         * @param other The vector that will be checked for equality with the current instance object.
+         * 
+         * @return true If the x and y of the vectors are the same.
+         * @return false If the x and y of the vectors are not equal.
+         */
         bool isEqual(const Vector2& other) const;
         
+        /**
+         * @brief Checks if the magnitude of the current instance vector is less than the magnitude of the given parameter vector.
+         * 
+         * @param other The vector that will be compared by lenght with the current instance object.
+         */
         bool isLessThan(const Vector2& other) const;
+
+        /**
+         * @brief Checks if the magnitude of the current instance vector is greater than the magnitude of the given parameter vector.
+         */
         bool isGreaterThan(const Vector2& other) const;
+
+        /**
+         * @brief Checks if the current instance object is the null vector.
+         * 
+         * @return bool true If the current instance vector is null (0, 0).
+         * @return bool false If any coordinate of the current instance vector is not 0.
+         */
         bool isNull() const;
 
         // Object modifier methods
+
+        /**
+         * @brief Changes the current vector coordinates.
+         * 
+         * This method is a setter for x and y.
+         * 
+         * @param x The new value of x.
+         * @param y The new value of y.
+         * 
+         * @returns Vector2& A refference to the current object.
+         */
         Vector2& moveTo(const float x,const float y);
+
+        /**
+         * @brief Normalizes the current vector.
+         * 
+         * Vector normalization is the process of scaling a vector to have a unit length (magnitude of 1) while maintaining its direction.
+         * 
+         * @returns Vector2& A refference to the current object.
+         */
         Vector2& normalize();
-        Vector2& rotateBy(float radians);
+
+        /**
+         * @brief Rotates the current vector.
+         * 
+         * The rotation is performed in trigonometric sense (counterclockwise).
+         * 
+         * @param angleRadians The angle of the rotation, in radians
+         * 
+         * @returns Vector2& A reference to the normalized object.
+         */
+        Vector2& rotateBy(float angleRadians);
+
+        /**
+         * @brief Scales the current vector by a given factor.
+         * 
+         * This method multiplies both components of the vector by the specified scalar,
+         * effectively changing its magnitude while maintaining its direction.
+         * 
+         * @param scalar The factor by which to scale the vector.
+         * 
+         * @returns Vector2& A reference to the scaled vector.
+         */
         Vector2& scaleBy(float scalar);
+
+        /**
+         * @brief Adds a vector to the current vector.
+         * 
+         * This method adds two vectors component by component and stores the result in the current instance object.
+         * 
+         * @param other The vector that will be added to the current instance vector.
+         * 
+         * @returns Vector2& A reference to the modified current object.
+         */
         Vector2& add(const Vector2& other);
+
+        /**
+         * @brief Subtracts a vector from the current vector
+         * 
+         * This method subtracts the components of a given vector from the components of this vector.
+         * 
+         * @param other The vector that will be added to the current instance vector.
+         * 
+         * @returns Vector2& A reference to the modified current object.
+         */
         Vector2& subtract(const Vector2& other);
 
         /**
-         * @brief Computes the non-existen cache fields.
+         * @brief Computes the cache fields that are not memoized.
+         * 
+         * @returns Vector2& A refference to the current object.
          */
         Vector2& precompute();
 
@@ -154,8 +239,34 @@ namespace geometry {
         //      Operators
         // ==============================
 
+        /**
+         * @brief Checks for equality between two vectors. 
+         * 
+         * This operator checks if the components of two vectors are equal.
+         * Internally, it uses the isEqual() method to perform the comparison.
+         * 
+         * @param other The vector to compare with.
+         * @return true If the vectors are equal.
+         * @return false Otherwise.
+         * 
+         * @see isEqual() For more details about the equality check.
+         */
         bool operator ==(const Vector2& other) const;
+
+        /**
+         * @brief Checks for inequality between two vectors.
+         * This operator checks if the components of two vectors are not equal.
+         * Internally, it uses the isEqual() method to perform the comparison.
+         * 
+         *  @param other The vector to compare with.
+         *  @return true If the vectors are not equal.
+         *  @return false Otherwise.
+         * 
+         * @see isEqual() For more details about the equality check.
+         */
         bool operator !=(const Vector2& other) const;
+
+        
         bool operator <(const Vector2& other) const;
         bool operator >(const Vector2& other) const;
         bool operator <=(const Vector2& other) const;

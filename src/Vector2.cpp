@@ -207,12 +207,12 @@ bool Vector2::operator >(const Vector2& other) const
 
 bool Vector2::operator <=(const Vector2& other) const
 {
-    return isLessThan(other) || isEqual(other);
+    return isLessThan(other) || (floatEq(this->lenght(), other.lenght()));
 }
 
 bool Vector2::operator >=(const Vector2& other) const
 {
-    return isGreaterThan(other) || isEqual(other);
+    return isGreaterThan(other) || (floatEq(this->lenght(), other.lenght()))
 }
 
 Vector2 Vector2::operator -() const

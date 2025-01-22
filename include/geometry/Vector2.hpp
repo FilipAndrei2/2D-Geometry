@@ -58,6 +58,8 @@ namespace geometry {
          * @brief Returns the sin of the angle between the current object vector and OX.
          * 
          * @returns The value of the sin of the angle between the current object vector and OX as a float.
+         * 
+         * @throws std::runtime_error() if the vector is (0, 0)
          */
         float sinTheta() const;
 
@@ -65,6 +67,8 @@ namespace geometry {
          * @brief Returns the cos of the angle between the current object vector and OX.
          * 
          * @returns The value of the sin of the angle between the current object vector and OX as a float.
+         * 
+         *  @throws std::runtime_error() if the vector is (0, 0)
          */
         float cosTheta() const;
 
@@ -90,6 +94,8 @@ namespace geometry {
          * @param other The other vector to compute the angle from.
          * 
          * @returns The value of the angle in radians as a float.
+         * 
+         * @throws std::runtime_error if any of the two vectors are null vector (0, 0)
          */
         float angleBetween(const Vector2& other);
 
@@ -256,7 +262,7 @@ namespace geometry {
         /**
          * @brief Checks for inequality between two vectors.
          * This operator checks if the components of two vectors are not equal.
-         * Internally, it uses the isEqual() method to perform the comparison.
+         * Internally, it uses the isEqual(other) method to perform the comparison.
          * 
          *  @param other The vector to compare with.
          *  @return true If the vectors are not equal.
@@ -266,17 +272,86 @@ namespace geometry {
          */
         bool operator !=(const Vector2& other) const;
 
-        
+        /**
+         * @brief Compares two vectors by lenght.
+         * This operator checks if the first vector's lenght is smaller than the second vector's lenght.
+         * Internally, it uses the isLessThan(other) method to perform the comparision.
+         * 
+         * @param other The vector to compare with.
+         * @return true If the first vector lenght is smaller.
+         * @return false Otherwise. 
+         */
         bool operator <(const Vector2& other) const;
+        
+        /**
+         * @brief Compares two vectors by lenght.
+         * This operator checks if the first vector's lenght is greater than the second vector's lenght.
+         * Internally, it uses the isGreaterThan(other) method to perform the comparision.
+         * 
+         * @param other The vector to compare with.
+         * @return true If the first vector lenght is greater.
+         * @return false Otherwise.  
+         */
         bool operator >(const Vector2& other) const;
+
+        /**
+         * @brief Compares two vectors by lenght.
+         * This operator checks if the first vector's lenght is less than or equal than the second vector's lenght.
+         * 
+         * @param other The vector to compare with.
+         * @return true If the first vector lenght is less than or equal.
+         * @return false Otherwise.  
+         */
         bool operator <=(const Vector2& other) const;
+
+        /**
+         * @brief Compares two vectors by lenght.
+         * This operator checks if the first vector's lenght is greater than or equal than the second vector's lenght.
+         * 
+         * @param other The vector to compare with.
+         * @return true If the first vector lenght is greater than or equal.
+         * @return false Otherwise.  
+         */
         bool operator >=(const Vector2& other) const;
 
         Vector2 operator -() const;
         Vector2 operator +() const;
 
+        /**
+         * @brief Adds two vectors geometrically.
+         * Vector addition is the process of combining two or more vectors by adding their corresponding components,
+         * resulting in a new vector that represents the total effect of the combined vectors.
+         * 
+         * This method doesn't change the internal state of any object.
+         * 
+         * @param other The vector to perform the addition with.
+         * @returns A new Vector2 object that represents the combined vectors.
+         */
         Vector2 operator +(const Vector2& other) const;
+
+        /**
+         * @brief Subtracts a vector from another.
+         * Vector subtraction is the process of adding a vector with the negate of another vector.
+         * A negate is obtained by multiplying a vector with -1.
+         * 
+         * This method doesn't change the internal state of any object.
+         * 
+         * @param other The vector to perform the subtraction with.
+         * @returns A new Vector2 object that represents the difference vector.
+         */
         Vector2 operator -(const Vector2& other) const;
+
+        /**
+         * @brief Multiplies a vector with a scalar value.
+         * Vector multiplication is the process of multiplying each component of the vector with a scalar n,
+         * resulting in a vector with a magnitude that is equal to n * old lenght.
+         * 
+         * This method doesn't change the internal state of any object.
+         * 
+         * @param scalar The scaling factor.
+         * @returns A new Vector2 object that represents the scaled vector.
+         * 
+         */
         Vector2 operator *(const float scalar) const;
         Vector2 operator /(const float scalar) const;
         

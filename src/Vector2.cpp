@@ -1,5 +1,6 @@
 #include <geometry/Vector2.hpp>
 
+#include <stdexcept>
 #include <cmath>
 
 #include "geometry/internal/common.hpp"
@@ -34,8 +35,13 @@ float Vector2::lenght() const
     return cache.lenght.value();
 }
 
-float Vector2::sinTheta() const
+float Vector2::sinTheta() const 
 {
+    if (floatEq(this->lenght(), 0.0f))
+    {
+        throw std::runtime_error("Can't compute sin of vector with lenght 0!\nUse isNull() method to check for zero lenght vector");
+    }
+
     if (!cache.sinTheta.has_value())
     {
         cache.sinTheta.emplace(y / this->lenght());
@@ -45,6 +51,11 @@ float Vector2::sinTheta() const
 
 float Vector2::cosTheta() const
 {
+    if ( floatEq(this->lenght(), 0.0f) )
+    {
+        throw std::runtime_error("Can't compute cos of vector with lenght 0!\nUse isNull() method to check for zero lenght vector");
+    }
+
     if (!cache.cosTheta.has_value())
     {
         cache.cosTheta.emplace(x / this->lenght());
@@ -59,12 +70,17 @@ float Vector2::dot(const Vector2& other) const
 
 float Vector2::angleBetween(const Vector2& other)
 {
+    if (floatEq(this->lenght(), 0.0f) || floatEq(other.lenght(), 0.0f))
+    {
+        throw std::runtime_error("Can't compute the angle between two vectors if atleast one of them is (0, 0)!\nUse isNull() to check for null vector!\n");
+    }
+
     return std::acos(this->dot(other) / (this->lenght() * other.lenght()));
 }
 
 Vector2 Vector2::normalized() const
 {
-    float lenght = this->lenght();
+    float lenght = lenght();
     if (lenght <= FLOAT_EPSILON)
     {
         return Vector2(0.0f, 0.0f);
@@ -212,7 +228,7 @@ bool Vector2::operator <=(const Vector2& other) const
 
 bool Vector2::operator >=(const Vector2& other) const
 {
-    return isGreaterThan(other) || (floatEq(this->lenght(), other.lenght()))
+    return isGreaterThan(other) || (floatEq(this->lenght(), other.lenght()));
 }
 
 Vector2 Vector2::operator -() const

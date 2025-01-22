@@ -50,8 +50,35 @@ TEST(Vector2Tests, AngleBetween2VectorsTest)
     ASSERT_FLOAT_EQ(M_PI_2, v1.angleBetween(v2));
 }
 
+TEST(Vector2Tests, DotProductTest)
+{
+    geometry::Vector2 v1(3, 4), v2(1, 2);
 
+    // Dot product is 3 * 1 + 4 * 2 = 11
+    float rez1 = v1.dot(v2);
+    float rez2 = v2.dot(v1);
 
+    // Expected: rez1 == rez2 == 11
+    ASSERT_FLOAT_EQ(rez1, rez2); // dot product is comutative
+    ASSERT_FLOAT_EQ(rez1, 11.0f);
+}
+
+TEST(Vector2Tests, SinAndCosOfNullVect)
+{
+    geometry::Vector2 v1(0.0f, 0.0f);
+
+    ASSERT_THROW(v1.sinTheta(), std::runtime_error);
+    ASSERT_THROW(v1.cosTheta(), std::runtime_error);
+}
+
+TEST(Vector2Tests, AngleBetweenNullVect)
+{
+    geometry::Vector2 nullvect(0.0f, 0.0f), randomvect(65.3f, 8.2f);
+
+    ASSERT_ANY_THROW(nullvect.angleBetween(randomvect));
+
+    ASSERT_ANY_THROW(randomvect.angleBetween(nullvect));
+}
 
 int main(int argc, char** argv)
 {
